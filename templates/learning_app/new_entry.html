@@ -6,7 +6,7 @@
             <div class="card-body p-4 p-md-5">
                 <div class="mb-4 border-bottom pb-3">
                     <h2 class="fw-bold text-dark mb-2">Add a New Entry</h2>
-                    <h5 class="text-primary">Topic: {{ topic }}</h5>
+                    <h5 style="color: 	#48D1CC; text-decoration: none;">Topic: {{ topic }}</h5>
                 </div>
 
                 <form action="{% url 'learning_app:new_entry' topic.id %}" method="post" novalidate>

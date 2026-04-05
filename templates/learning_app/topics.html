@@ -6,13 +6,13 @@
     <a href="{% url 'learning_app:new_topic' %}" class="btn btn-custom shadow-sm">Add New Topic</a>
   </div>
 
-  <div class="list-group shadow-sm mb-5">
+<div class="list-group mb-5">
     {% for t in topics %}
-      <a href="{% url 'learning_app:topic' t.id %}" class="list-group-item list-group-item-action p-3 text-decoration-none text-dark fs-5 fw-semibold">
+      <a href="{% url 'learning_app:topic' t.id %}" class="list-group-item list-group-item-action p-3 mb-3 rounded shadow-sm border text-decoration-none text-dark fs-5 fw-semibold">
         {{ t }}
       </a>
     {% empty %}
-      <div class="list-group-item text-muted p-4 text-center">No topics have been added yet.</div>
+      <div class="list-group-item text-muted p-4 text-center rounded shadow-sm">No topics have been added yet.</div>
     {% endfor %}
   </div>
 {% endblock content %}

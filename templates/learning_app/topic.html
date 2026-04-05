@@ -2,11 +2,11 @@
 
 {% block content %}
 
-    <h1 class="mb-3">Topic:</h1>
+    <h1 class="mb-2 text-dark fw-bold">Topic:</h1>
 
     <h2 class="mb-4"> {{ topic }} </h2>
 
-    <h4 class="mb-3">Entries:</h4>
+    <h4 style="color: 	#008B8B; text-decoration: none;">Entries:</h4>
 
     <div class="mb-4">
         {% for entry in entries %}
@@ -15,7 +15,7 @@
                     {{ entry.date_added|date:'M d, Y H:i' }}
                 </div>
                 <div class="card-body">
-                    <div class="card-text mb-3">
+                    <div class="card-text mt-3" style="font-family: 'Playfair Display', serif; font-size: 1rem; letter-spacing: 1px;">
                         {{ entry.txt|linebreaks }}
                     </div>
                     <a href="{% url 'learning_app:edit_entry' entry.id %}" class="btn btn-outline-secondary btn-sm me-2">Edit entry</a>

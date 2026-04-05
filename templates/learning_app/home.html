@@ -3,25 +3,33 @@
 {% block content %}
 <div class="p-5 mb-3 bg-white rounded-3 shadow-sm text-center">
     <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold text-dark">Welcome to the Learning Log</h1>
-        <p class="col-md-8 fs-4 mx-auto text-secondary mt-3">
+        <h1 style="font-family: 'Playwrite IE', cursive; font-size: 4rem; letter-spacing: 2px; color: #403c3c;">
+            Welcome to the Learning Log
+        </h1>
+
+        <p class="text-secondary mt-3" style="font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 1px;">
             This is an app to help you record learning insights and track progress.
         </p>
 
         <hr class="my-4">
 
         {% if user.is_authenticated %}
-            <h4>{{ user.username }}</h4>
-            <h3 class="mb-4">Are you ready to learn?</h3>
-            <a class="btn btn-custom btn-lg" href="{% url 'learning_app:topics' %}" role="button">View of my learning topics</a>
+            <h4 class="text-secondary mt-3" style="font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 1px;">{{ user.username }}</h4>
+
+            <h3 class="mb-4">
+                Are you ready to learn?
+            </h3>
+
+            <a class="btn btn-custom btn-lg shadow-sm" href="{% url 'learning_app:topics' %}" role="button">
+                View of my learning topics
+            </a>
         {% else %}
             <h3 class="mb-3">Start your learning journey</h3>
             <p class="text-muted mb-4">Log in to create your own exclusive learning notes.</p>
 
-            <div>
-                <a class="btn btn-light btn-lg" href="{% url 'users:login' %}" role="button">Log in</a>
-                <a class="btn btn-custom btn-lg me-3" href="{% url 'users:register' %}" role="button">Register</a>
-
+            <div class="d-flex justify-content-center gap-3">
+                <a class="btn btn-light btn-lg border" href="{% url 'users:login' %}" role="button">Log in</a>
+                <a class="btn btn-custom btn-lg shadow-sm" href="{% url 'users:register' %}" role="button">Register</a>
             </div>
         {% endif %}
     </div>
