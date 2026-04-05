@@ -4,6 +4,7 @@ from django.urls import reverse
 from .forms import TopicForm, EntryForm
 from .models import Topic, Entry
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     context = {
@@ -14,11 +15,13 @@ def home(request):
     }
     return render(request, 'learning_app/home.html', context)
 
+@login_required
 def topics(request):
     topics = Topic.objects.filter(owner=request.user).order_by('-date_added')
     context = {'topics': topics}
     return render(request, 'learning_app/topics.html', context)
 
+@login_required
 def topic(request, topic_id):
     topic = get_object_or_404(Topic, id=topic_id)
     if topic.owner != request.user:
@@ -28,6 +31,7 @@ def topic(request, topic_id):
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_app/topic.html', context)
 
+@login_required
 def new_topic(request):
     if request.method != 'POST':
         form = TopicForm()
@@ -41,6 +45,7 @@ def new_topic(request):
     context = {'form': form}
     return render(request, 'learning_app/new_topic.html', context)
 
+@login_required
 def new_entry(request,topic_id):
     topic = Topic.objects.get(id=topic_id)
     if request.method != 'POST':
@@ -55,6 +60,7 @@ def new_entry(request,topic_id):
     context = {'topic': topic,'form': form}
     return render(request, 'learning_app/new_entry.html', context)
 
+@login_required
 def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
@@ -69,6 +75,7 @@ def edit_entry(request, entry_id):
     context = {'entry':entry,'topic':topic,'form': form}
     return render(request, 'learning_app/edit_entry.html', context)
 
+@login_required
 def delete_entry(request, entry_id):
     entry = get_object_or_404(Entry, id=entry_id)
     target_topic_id = entry.topic.id

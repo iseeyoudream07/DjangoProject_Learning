@@ -127,3 +127,4 @@ LOGOUT_REDIRECT_URL = 'learning_app:home'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+LOGIN_URL = 'users:login'
