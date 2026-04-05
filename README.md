@@ -6,4 +6,4 @@
 
 3) Open http://127.0.0.1:8000/ on your browser and start to discover my website
 
-or open https://iseeyoudream.pythonanywhere.com/（maybe can't use within the GFW）
+   or open https://iseeyoudream.pythonanywhere.com/ (maybe can't use within the GFW)
