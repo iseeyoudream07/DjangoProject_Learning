@@ -11,7 +11,7 @@ def register(request):
         if form.is_valid():
             new_user = form.save()
             login(request, new_user)
-            return redirect('home')
+            return redirect('learning_app:home')
     context = {'form': form}
     return render(request, 'users/register.html', context)
 def index(request):

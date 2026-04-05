@@ -1,17 +1,61 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p><a href="{% url 'learning_app:topic' entry.topic.id %}">{{ entry.topic }}</a></p>
-    
-    <h1>Edit Entry:</h1>
-    <h3>{{ entry }}</h3>
-    
-    <form action="{% url 'learning_app:edit_entry' entry.id %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save Changes</button>
-    </form>
-    
-    <a href="{% url 'learning_app:topic' entry.topic.id %}">Back to Topic.</a>
+<div class="row justify-content-center mt-4" style="min-height: 60vh; align-items: center;">
+    <div class="col-md-10 col-lg-8">
+        <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-body p-4 p-md-5">
+                <div class="mb-4 border-bottom pb-3">
+                    <h2 class="fw-bold text-dark mb-2">Edit Entry</h2>
+                    <h5 class="text-secondary">
+                        Topic:
+                        <a href="{% url 'learning_app:topic' entry.topic.id %}" class="text-decoration-none text-primary">
+                            {{ entry.topic }}
+                        </a>
+                    </h5>
+                </div>
 
+                <form action="{% url 'learning_app:edit_entry' entry.id %}" method="post" novalidate>
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="mb-4 text-start">
+                            <label class="form-label fw-bold text-secondary mb-2" for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                            </label>
+
+                            {{ field }}
+
+                            {% for error in field.errors %}
+                                <div class="text-danger small mt-1 fw-bold">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a href="{% url 'learning_app:topic' entry.topic.id %}" class="btn btn-outline-secondary me-md-2">Cancel</a>
+                        <button class="btn btn-custom px-4 shadow-sm" type="submit">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 自动为输入框和多行文本区域应用 Bootstrap 样式
+    document.addEventListener("DOMContentLoaded", function() {
+        let inputs = document.querySelectorAll("form input, form textarea");
+        inputs.forEach(function(input) {
+            if (input.type !== "hidden" && input.type !== "submit" && input.type !== "checkbox") {
+                input.classList.add("form-control");
+
+                // 针对多行文本区域（编辑条目时通常需要较大空间），给予预设的最小高度
+                if (input.tagName.toLowerCase() === 'textarea') {
+                    input.style.minHeight = "200px";
+                }
+            }
+        });
+    });
+</script>
 {% endblock content %}

@@ -1,10 +1,69 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
-    <h1>Register</h1>
-    <form method="post" action="{% url 'users:register' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4 fw-bold text-dark">Create an Account</h2>
+
+                <form method="post" action="{% url 'users:register' %}" novalidate>
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="mb-4 text-start">
+                            <label class="form-label fw-bold text-secondary mb-1" for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                            </label>
+
+                            {{ field }}
+
+                            {% if field.help_text %}
+                                <div class="form-text text-muted small mt-2 lh-sm">
+                                    {{ field.help_text|safe }}
+                                </div>
+                            {% endif %}
+
+                            {% for error in field.errors %}
+                                <div class="text-danger small mt-1 fw-bold">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger p-2 mb-3">
+                            {% for error in form.non_field_errors %}
+                                <p class="mb-0 small">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <button class="btn btn-custom w-100 btn-lg mt-3 shadow-sm" type="submit">Register</button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="text-muted">Already have an account? <a href="{% url 'users:login' %}" class="text-decoration-none fw-bold">Log in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 选中表单中的所有输入框
+        let inputs = document.querySelectorAll("form input");
+
+        inputs.forEach(function(input) {
+            // 排除掉不需要 form-control 样式的隐藏字段和复选框
+            if (input.type !== "hidden" && input.type !== "submit" && input.type !== "checkbox") {
+                input.classList.add("form-control");
+                // 让输入框大一点，视觉体验更好
+                input.classList.add("form-control-lg");
+            }
+        });
+    });
+</script>
 {% endblock content %}

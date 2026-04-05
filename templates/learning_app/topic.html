@@ -1,25 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1 class="mb-4">Topic:</h1>
-    <h2 class="mb-5"> {{ topic }} </h2>
-    <h3 class="mt-5">Entries:</h3>
-    <ul style="text-align:left;"></ul>
-<ul>
-    {% for entry in entries %}
-        <li>
-            <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
-            <h4>{{ entry.txt|linebreaks }}</h4>
 
-            <p><a href="{% url 'learning_app:edit_entry' entry.id %}">Edit entry</a></p>
-            <p><a href="{% url 'learning_app:delete_entry' entry.id %}">Delete Entry</a></p>
-        </li>
-    {% empty %}
-        <li>No entries have been added yet.</li>
-    {% endfor %}
-    <p>
-        <br>
-    </p>
-    <a href="{% url 'learning_app:new_entry' topic.id %}" >Add New Entry.</a>
-</ul>
+    <h1 class="mb-3">Topic:</h1>
+
+    <h2 class="mb-4"> {{ topic }} </h2>
+
+    <h4 class="mb-3">Entries:</h4>
+
+    <div class="mb-4">
+        {% for entry in entries %}
+            <div class="card mb-3 shadow-sm">
+                <div class="card-header text-muted bg-light">
+                    {{ entry.date_added|date:'M d, Y H:i' }}
+                </div>
+                <div class="card-body">
+                    <div class="card-text mb-3">
+                        {{ entry.txt|linebreaks }}
+                    </div>
+                    <a href="{% url 'learning_app:edit_entry' entry.id %}" class="btn btn-outline-secondary btn-sm me-2">Edit entry</a>
+                    <a href="{% url 'learning_app:delete_entry' entry.id %}" class="btn btn-outline-danger btn-sm">Delete Entry</a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="alert alert-info" role="alert">
+                No entries have been added yet.
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'learning_app:new_entry' topic.id %}" class="btn btn-custom mb-5">Add New Entry</a>
+
 {% endblock content %}
