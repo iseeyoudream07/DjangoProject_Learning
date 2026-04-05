@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <p><a href="{% url 'learning_app:topic' entry.topic.id %}">{{ entry.topic }}</a></p>
+    
+    <h1>Edit Entry:</h1>
+    <h3>{{ entry }}</h3>
+    
+    <form action="{% url 'learning_app:edit_entry' entry.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Changes</button>
+    </form>
+    
+    <a href="{% url 'learning_app:topic' entry.topic.id %}">Back to Topic.</a>
+
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="mb-4">Topic:</h1>
+    <h2 class="mb-5"> {{ topic }} </h2>
+    <h3 class="mt-5">Entries:</h3>
+    <ul style="text-align:left;"></ul>
+<ul>
+    {% for entry in entries %}
+        <li>
+            <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
+            <h4>{{ entry.txt|linebreaks }}</h4>
+
+            <p><a href="{% url 'learning_app:edit_entry' entry.id %}">Edit entry</a></p>
+            <p><a href="{% url 'learning_app:delete_entry' entry.id %}">Delete Entry</a></p>
+        </li>
+    {% empty %}
+        <li>No entries have been added yet.</li>
+    {% endfor %}
+    <p>
+        <br>
+    </p>
+    <a href="{% url 'learning_app:new_entry' topic.id %}" >Add New Entry.</a>
+</ul>
+{% endblock content %}

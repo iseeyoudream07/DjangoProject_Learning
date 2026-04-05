@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1>Topics</h1>
+    <p><br>
+    <br>
+    </p>
+    
+  <ul>
+    {% for t in topics %}
+    <li>
+      <a href="{% url 'learning_app:topic' t.id %}" style="font-size:20px;">
+        {{ t }}
+      </a>
+        <p>
+        </p>
+    </li>
+    {% empty %}
+      <li>No topics have been added yet.</li>
+    {% endfor %}
+  
+  </ul>
+    
+    <p>
+    <br>
+    </p>
+
+    <a href="{% url 'learning_app:new_topic' %}" >Add New Topic.</a>
+    <p>
+    </p>
+
+    
+
+    
+{% endblock content %}
+

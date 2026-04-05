@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-white rounded-3 shadow-sm text-center">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold text-dark">Welcome to the Learning Log</h1>
+        <p class="col-md-8 fs-4 mx-auto text-secondary mt-3">
+            This is an app to help you record learning insights and track progress.
+        </p>
+
+        <hr class="my-4">
+
+        {% if user.is_authenticated %}
+            <h3 class="mb-4">{{ user.username }} <br>
+                Are you ready to learn?</h3>
+            <a class="btn btn-primary btn-lg" href="{% url 'learning_app:topics' %}" role="button">View of my learning topics</a>
+        {% else %}
+            <h3 class="mb-3">Start your learning journey</h3>
+            <p class="text-muted mb-4">Log in to create your own exclusive learning notes.</p>
+
+            <div>
+                <a class="btn btn-outline-secondary btn-lg" href="{% url 'users:login' %}" role="button">Log in</a>
+                <a class="btn btn-primary btn-lg me-3" href="{% url 'users:register' %}" role="button">Register</a>
+
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
