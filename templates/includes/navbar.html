@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-dark mb-4" style="background-color: #5F9EA0;">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'learning_app:home' %}" style="font-family: 'Pacifico', cursive; font-size: 2.0rem;">
+                    Learning Log
+                </a>
+
+                <ul class="navbar-nav ms-auto align-items-center">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-light fs-5 hamburger-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="hamburger-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="navbarDropdown">
+
+                        {% if user.is_authenticated %}
+                            <li><span class="dropdown-item-text text-muted small">Hello, <br><b>{{ user.username }}</b></span></li>
+                            <li><hr class="dropdown-divider"></li>
+                        {% endif %}
+
+                        <li>
+                            <button class="dropdown-item py-2" data-bs-toggle="modal" data-bs-target="#themeModal">
+                                🖼️ Background Settings
+                            </button>
+                        </li>
+
+                        <li><hr class="dropdown-divider"></li>
+
+                        {% if user.is_authenticated %}
+                            <li>
+                                <form method="post" action="{% url 'users:logout' %}" class="m-0 p-0">
+                                    {% csrf_token %}
+                                    <button class="dropdown-item py-2 text-danger fw-bold" type="submit">🚪 Log Out</button>
+                                </form>
+                            </li>
+                        {% else %}
+                            <li><a class="dropdown-item py-2" href="{% url 'users:login' %}">🔑 Log in</a></li>
+                            <li><a class="dropdown-item py-2" href="{% url 'users:register' %}">📝 Register</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+            </ul>
+            </div>
+    </nav>
