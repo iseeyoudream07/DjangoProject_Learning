@@ -18,13 +18,17 @@
                     <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="navbarDropdown">
 
                         {% if user.is_authenticated %}
-                            <li><span class="dropdown-item-text text-muted small">Hello, <br><b>{{ user.username }}</b></span></li>
+                            <li>
+                                <a class="dropdown-item py-2" href="{% url 'users:profile' %}">
+                                    My profile (<b>{{ user.username }}</b>)
+                                </a>
+                            </li>
                             <li><hr class="dropdown-divider"></li>
                         {% endif %}
 
                         <li>
                             <button class="dropdown-item py-2" data-bs-toggle="modal" data-bs-target="#themeModal">
-                                🖼️ Background Settings
+                                Background Settings
                             </button>
                         </li>
 
@@ -34,12 +38,12 @@
                             <li>
                                 <form method="post" action="{% url 'users:logout' %}" class="m-0 p-0">
                                     {% csrf_token %}
-                                    <button class="dropdown-item py-2 text-danger fw-bold" type="submit">🚪 Log Out</button>
+                                    <button class="dropdown-item py-2 text-danger fw-bold" type="submit">Log Out</button>
                                 </form>
                             </li>
                         {% else %}
-                            <li><a class="dropdown-item py-2" href="{% url 'users:login' %}">🔑 Log in</a></li>
-                            <li><a class="dropdown-item py-2" href="{% url 'users:register' %}">📝 Register</a></li>
+                            <li><a class="dropdown-item py-2" href="{% url 'users:login' %}">Log in</a></li>
+                            <li><a class="dropdown-item py-2" href="{% url 'users:register' %}">Register</a></li>
                         {% endif %}
                     </ul>
                 </li>

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4" style="font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 1px;">
+                    {{ user.username }}'s profile
+                </h2>
+                <hr>
+
+                <h4 class="mb-3" style="font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 1px;">My topic({{ topics.count }})</h4>
+                {% if topics %}
+                    <ul class="list-group">
+                        {% for topic in topics %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{% url 'learning_app:topic' topic.id %}" style="color: #B0E0E6; text-decoration: none;">
+                                    {{ topic.txt  }}
+                                </a>
+                                <span class="text-muted small">
+                                    {{ topic.date_added|date:"Y-m-d H:i" }}
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="alert alert-info" role="alert">
+                        You haven’t created any learning topics yet. Go <a href="{% url 'learning_app:new_topic' %}">create one</a>!
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -51,3 +51,11 @@
     top: 8px;
     transform: rotate(-45deg);
 }
+
+body{
+    background-image: url('../images/FA664A9D-8C0F-47C1-A46F-6BF53A8276F7_1_105_c.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
