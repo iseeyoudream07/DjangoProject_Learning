@@ -20,3 +20,11 @@ class Entry(models.Model):
 
     def __str__(self):
         return self.txt[:50]+("..." if len(self.txt) > 50 else "")
+
+class Announcement(models.Model):
+    content = models.TextField(verbose_name="Announcement")
+    is_active = models.BooleanField(default=False,verbose_name="Display?")
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.content[:30]+("..." if len(self.content) > 30 else "")

@@ -26,13 +26,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-sz%od^10kla2xqhzasav_8-vu_rd_jd66%5vmtns(nfd@kxc=w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = True
+#DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['iseeyoudream.pythonanywhere.com',
                  '127.0.0.1',
                  'localhost',
                  'iseeyoudream0721.azurewebsites.net',]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://iseeyoudream0721.azurewebsites.net',
+]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 
@@ -70,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'learning_app.context_processors.global_announcement',
             ],
         },
     },
