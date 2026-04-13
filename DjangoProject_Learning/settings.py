@@ -31,7 +31,7 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = ['iseeyoudream.pythonanywhere.com',
                  '127.0.0.1',
                  'localhost',
-                 os.environ.get('WEBSITE_HOSTNAME', '*')]
+                 'iseeyoudream0721.azurewebsites.net',]
 
 
 # Application definition
@@ -124,8 +124,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'learning_app:home'
@@ -135,4 +133,6 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 LOGIN_URL = 'users:login'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
