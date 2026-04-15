@@ -17,12 +17,14 @@
                         Released on {{ entry.date_added|date:'M d,Y H:i' }}
                     </span>
                     {% if request.user == entry.author %}
-                        <a href="{% url 'learning_app:edit_entry' entry.id %}" class="btn btn-sm btn-outline-secondary">
-                            Edit
-                        </a>
-                        <a href="{% url 'learning_app:delete_entry' entry.id %}" class="btn btn-outline-danger btn-sm">
-                            Delete Entry
-                        </a>
+                        <div class="btn-group" role="group" aria-label="Entry Action">
+                            <a href="{% url 'learning_app:edit_entry' entry.id %}" class="btn btn-sm btn-outline-secondary">
+                                Edit
+                            </a>
+                            <a href="{% url 'learning_app:delete_entry' entry.id %}" class="btn btn-outline-danger btn-sm">
+                                Delete Entry
+                            </a>
+                        </div>
                     {% endif  %}
                 </div>
                 <div class="card-body">

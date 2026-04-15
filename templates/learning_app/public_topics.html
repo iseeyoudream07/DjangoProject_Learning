@@ -9,12 +9,14 @@
         <ul class="list-group list-group-flush">
             {% for topic in topics %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="{% url 'learning_app:topic' topic.id %}" class="text-decoration-none fs-5">
+                    <a href="{% url 'learning_app:topic' topic.id %}" class="fs-5" style="color: #B0E0E6 ; text-decoration: none;">
                         {{ topic.txt }}
                     </a>
-                    <span class="badge bg-info text-dark rounded-pill">
-                        username:{{ topic.owner.username }}
-                    </span>
+                    <small class="badge text-dark rounded-pill fs-6"
+                           style="font-family: 'Playfair Display', serif;'"
+                           title="{{ topic.owner.username }}">
+                        by {{ topic.owner.username }}
+                    </small>
                 </li>
             {% empty %}
                 <li class="list-group-item text-muted">

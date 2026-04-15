@@ -53,7 +53,7 @@ def new_topic(request):
 
 @login_required
 def new_entry(request,topic_id):
-    topic = Topic.objects.get(id=topic_id)
+    topic = get_object_or_404(Topic, id=topic_id)
     if request.method != 'POST':
         form = EntryForm()
     else:
@@ -72,7 +72,7 @@ def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
 
-    if entry.author != request.user and not topic.is_public:
+    if entry.author != request.user:
         raise Http404
 
     if request.method != 'POST':
@@ -89,5 +89,6 @@ def edit_entry(request, entry_id):
 def delete_entry(request, entry_id):
     entry = get_object_or_404(Entry, id=entry_id)
     target_topic_id = entry.topic.id
-    entry.delete()
+    if entry.author != request.user:
+        raise Http404
     return redirect('learning_app:topic',topic_id=target_topic_id)

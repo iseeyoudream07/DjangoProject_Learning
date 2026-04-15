@@ -11,6 +11,17 @@
     color: black;
 }
 
+.btn-custom_2 {
+    background-color: #F5F5F5;
+    border-color: snow;
+    color: black;
+}
+
+.btn-custom_2:hover {
+    background-color: rgb(239 16 16 / 0.93);
+    color: white;
+}
+
 /* ================= 汉堡菜单动画样式 ================= */
 /* 1. 图标容器的大小和定位 */
 .hamburger-icon {
@@ -58,6 +69,7 @@ body{
     min-height: 100vh;
     background-color: white;
 }
+
 
 body::before{
     content: "";

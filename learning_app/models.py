@@ -18,7 +18,7 @@ class Topic(models.Model):
 
 class Entry(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     txt = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
