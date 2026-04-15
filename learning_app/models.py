@@ -6,12 +6,19 @@ class Topic(models.Model):
     txt = models.CharField(max_length=200)
     date_added = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_public = models.BooleanField(default=True,verbose_name="Is public?")
 
     def __str__(self):
         return self.txt
 
+    @classmethod
+    def filter(cls, is_public):
+        pass
+
+
 class Entry(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
     txt = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 

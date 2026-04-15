@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="p-4 mb-4 bg-white rounded shadow-sm">
+        <h3 class="border-bottom pb-2 mb-4" style="font-family: 'Playfair Display', serif;">
+            Public Topics
+        </h3>
+
+        <ul class="list-group list-group-flush">
+            {% for topic in topics %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{% url 'learning_app:topic' topic.id %}" class="text-decoration-none fs-5">
+                        {{ topic.txt }}
+                    </a>
+                    <span class="badge bg-info text-dark rounded-pill">
+                        username:{{ topic.owner.username }}
+                    </span>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-muted">
+                    Here hasn't any public topics yet.
+                </li>    
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}

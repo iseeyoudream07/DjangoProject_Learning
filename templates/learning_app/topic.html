@@ -18,8 +18,10 @@
                     <div class="card-text mt-3" style="font-family: 'Playfair Display', serif; font-size: 1rem; letter-spacing: 1px;">
                         {{ entry.txt|linebreaks }}
                     </div>
-                    <a href="{% url 'learning_app:edit_entry' entry.id %}" class="btn btn-outline-secondary btn-sm me-2">Edit entry</a>
-                    <a href="{% url 'learning_app:delete_entry' entry.id %}" class="btn btn-outline-danger btn-sm">Delete Entry</a>
+                    <a href="{% url 'learning_app:edit_entry' entry.id %}"
+                       class="btn btn-outline-secondary btn-sm me-2">Edit entry</a>
+                    <a href="{% url 'learning_app:delete_entry' entry.id %}"
+                       class="btn btn-outline-danger btn-sm">Delete Entry</a>
                 </div>
             </div>
         {% empty %}
