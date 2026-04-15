@@ -15,14 +15,7 @@
 
 {% include 'includes/navbar.html' %}
 
-{% if site_announcement %}
-    <div class="container mb-3">
-        <div class="alert alert-warning alert-dismissible fade show text-center shadow-sm" role="alert" style="border-left: 5px solid rgb(32 156 134 / 0.46);">
-            <strong> Announcement </strong> {{ site_announcement.content }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </div>
-{% endif %}
+{% include 'includes/announcement_display.html' %}
 
     <main class="container">
         {% block content %}{% endblock content %}
