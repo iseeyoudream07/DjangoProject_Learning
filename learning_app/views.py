@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.contrib.admin.views.decorators import staff_member_required
 
-from .forms import TopicForm, EntryForm
-from .models import Topic, Entry
+from .forms import TopicForm, EntryForm,AnnouncementForm
+from .models import Topic, Entry,Announcement
 
 
 def home(request):
@@ -92,3 +93,33 @@ def delete_entry(request, entry_id):
     if entry.author != request.user:
         raise Http404
     return redirect('learning_app:topic',topic_id=target_topic_id)
+
+@login_required
+def toggle_topic_public(request, topic_id):
+    topic = get_object_or_404(Topic, id=topic_id)
+
+    if topic.owner != request.user:
+        return HttpResponseForbidden("You are not allowed to edit this entry")
+
+    if request.method == 'POST':
+        topic.is_public = not topic.is_public
+        topic.save()
+
+    return redirect(reverse('learning_app:topics'))
+
+@staff_member_required
+def edit_announcement(request):
+    announcement = Announcement.objects.first()
+    if not announcement:
+        announcement = Announcement()
+    if request.method != 'POST':
+        form = AnnouncementForm(instance=announcement)
+    else:
+        form = AnnouncementForm(instance=announcement,data=request.POST)
+        if form.is_valid():
+            if form.cleaned_data.get('is_active'):
+                Announcement.objects.exclude(id=announcement.id).update(is_active=False)
+                form.save()
+                return redirect(reverse('learning_app:home'))
+    context = {'form':form}
+    return render(request,'learning_app/edit_announcement.html', context)

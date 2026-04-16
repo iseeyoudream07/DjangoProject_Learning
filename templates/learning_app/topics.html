@@ -11,6 +11,12 @@
       <a href="{% url 'learning_app:topic' t.id %}" class="list-group-item list-group-item-action p-3 mb-3 rounded shadow-sm border text-decoration-none text-dark fs-5 fw-semibold">
         {{ t }}
       </a>
+        <form action="{% url 'learning_app:toggle_topic_public' t.id %}" method="post" class="m-0">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm {% if t.is_public %}btn-custom{% else %}btn-custom_2{% endif %}">
+              {% if t.is_public %}Public (click to set private){% else %}Private (click to make public){% endif %}
+            </button>
+        </form>
     {% empty %}
       <div class="list-group-item text-muted p-4 text-center rounded shadow-sm">No topics have been added yet.</div>
     {% endfor %}

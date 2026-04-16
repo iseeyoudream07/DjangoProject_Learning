@@ -11,7 +11,7 @@
                             Public Area
                         </a>
                     </li>
-                
+
                     <li class="nav-item dropdown">
 
                 <li class="nav-item dropdown">
@@ -32,6 +32,15 @@
                                     My profile (<b>{{ user.username }}</b>)
                                 </a>
                             </li>
+
+                            {% if user.is_stuff %}
+                                <li>
+                                    <a class="dropdown-item py-2 text-primary fw-bold"
+                                       href="{% url 'learning_app:edit_announcement' %}">
+                                        Edit Announcement
+                                    </a>
+                                </li>
+                            {% endif %}
                             <li><hr class="dropdown-divider"></li>
                         {% endif %}
 
