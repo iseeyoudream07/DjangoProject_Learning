@@ -5,6 +5,12 @@
                 </a>
 
                 <ul class="navbar-nav ms-auto align-items-center">
+                    {% if active_announcement %}
+                        <li class="nav-item me-2">
+                            <a class="nav-link text-light" href="#" data-bs-toggle="modal" data-bs-target="#announcementModal">
+                                <span class="fs-5">📢</span> </a>
+                        </li>
+                    {% endif %}
 
                     <li class="nav-item me-3">
                         <a class="nav-link text-light fw-bold" href="{% url 'learning_app:public_topics' %}">
@@ -33,9 +39,9 @@
                                 </a>
                             </li>
 
-                            {% if user.is_stuff %}
+                            {% if user.is_staff %}
                                 <li>
-                                    <a class="dropdown-item py-2 text-primary fw-bold"
+                                    <a class="dropdown-item py-2"
                                        href="{% url 'learning_app:edit_announcement' %}">
                                         Edit Announcement
                                     </a>

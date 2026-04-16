@@ -19,4 +19,4 @@ class AnnouncementForm(forms.ModelForm):
         model = Announcement
         fields = ['content','is_active']
         labels = {'content':'Announcement Content','is_active':'Show on frontend?'}
-        widgets = {'txt':forms.Textarea(attrs={'cols':80,'class':'form-control'})}
+        widgets = {'content':forms.Textarea(attrs={'cols':80,'class':'form-control'})}

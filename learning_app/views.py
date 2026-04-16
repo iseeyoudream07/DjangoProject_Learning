@@ -90,7 +90,7 @@ def edit_entry(request, entry_id):
 def delete_entry(request, entry_id):
     entry = get_object_or_404(Entry, id=entry_id)
     target_topic_id = entry.topic.id
-    if entry.author != request.user:
+    if entry.author != request.user and not request.user.is_staff:
         raise Http404
     return redirect('learning_app:topic',topic_id=target_topic_id)
 
@@ -119,7 +119,7 @@ def edit_announcement(request):
         if form.is_valid():
             if form.cleaned_data.get('is_active'):
                 Announcement.objects.exclude(id=announcement.id).update(is_active=False)
-                form.save()
-                return redirect(reverse('learning_app:home'))
+            form.save()
+            return redirect(reverse('learning_app:home'))
     context = {'form':form}
     return render(request,'learning_app/edit_announcement.html', context)
