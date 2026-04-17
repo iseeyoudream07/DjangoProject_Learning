@@ -16,10 +16,7 @@
                         {{ site_announcement.content|linebreaks }}
                     </div>
                     <div class="modal-footer justify-content-center border-0 pb-4">
-                        <button type="button" class="btn btn-custom_2 btn-lg shadow-sm px-5" id="dismissBtn">
-                            Don’t show again
-                        </button>
-                        <button type="button" class="btn btn-custom btn-lg shadow-sm px-5" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-custom btn-lg shadow-sm px-5"  id="gotItBtn" data-bs-dismiss="modal">
                             Got it
                         </button>
                     </div>
@@ -27,25 +24,28 @@
             </div>
         </div>
 
-        <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var currentUser = "{{ request.user.username|default:'anonymous' }}";//获取当前用户的用户名
-            var announcementID = {{ site_announcement.id }}
-            var storageKey = 'hide_announcement_' + announcementID + '_' + currentUser;//生成专属键值
-            //检查用户是不是已经点过不再提示了
-            if (!localStorage.getItem(storageKey)) {
-                var myModal = new bootstrap.Modal(document.getElementById('announcementModal'), {
-                    backdrop: 'static',
-                    keyboard: false
-                })
-                //绑定“不再提示”的按钮
-                myModal.show();
-                document.getElementById('dismissBtn').addEventListener('click', function() {
-                localStorage.setItem(storageKey,'true')//将信息储存在浏览器中
-                myModal.hide();//关闭窗口
-                });
-            }
-        });
-        </script>
+        {% if request.resolver_match.url_name == 'home' %}
+            <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var currentUser = "{{ request.user.username|default:'anonymous' }}";//获取当前用户的用户名
+                var announcementID = {{ site_announcement.id }}
+                var updatedTime = "{{ site_announcement.updated_time|date:'U' }}"//获取公告的更新时间戳
+                var storageKey = 'hide_announcement_' + announcementID + '_' + updatedTime + '_' + currentUser;//生成专属键值
+                //检查用户是不是已经点过不再提示了
+                if (!localStorage.getItem(storageKey)) {
+                    var myModal = new bootstrap.Modal(document.getElementById('announcementModal'), {
+                        backdrop: 'static',
+                        keyboard: false
+                    })
+                    //绑定“不再提示”的按钮
+                    myModal.show();
+                    document.getElementById('gotItBtn').addEventListener('click', function() {
+                        localStorage.setItem(storageKey,'true')//将信息储存在浏览器中
+                        //myModal.hide();//关闭窗口
+                    });
+                }
+            });
+            </script>
+        {% endif %}
     {% endif %}
 {% endif %}

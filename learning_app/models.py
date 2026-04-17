@@ -30,7 +30,7 @@ class Entry(models.Model):
 
 class Announcement(models.Model):
     content = models.TextField(verbose_name="Announcement")
-    is_active = models.BooleanField(default=False,verbose_name="Display?")
+    is_active = models.BooleanField(default=False,verbose_name="Display?")#设置默认值和设置该字段的人类可读名称
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

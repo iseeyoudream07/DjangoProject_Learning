@@ -90,9 +90,14 @@ def edit_entry(request, entry_id):
 def delete_entry(request, entry_id):
     entry = get_object_or_404(Entry, id=entry_id)
     target_topic_id = entry.topic.id
-    if entry.author != request.user and not request.user.is_staff:
+    is_author = (entry.author == request.user)
+    is_admin_in_public = (request.user.is_staff and entry.topic.is_public)
+
+    if is_author or is_admin_in_public:
+        entry.delete()
+        return redirect(reverse('learning_app:topic',args=[target_topic_id]))
+    else:
         raise Http404
-    return redirect('learning_app:topic',topic_id=target_topic_id)
 
 @login_required
 def toggle_topic_public(request, topic_id):
