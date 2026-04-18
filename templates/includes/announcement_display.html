@@ -24,7 +24,6 @@
             </div>
         </div>
 
-        {% if request.resolver_match.url_name == 'home' %}
             <script>
             document.addEventListener("DOMContentLoaded", function() {
                 var currentUser = "{{ request.user.username|default:'anonymous' }}";//获取当前用户的用户名
@@ -46,6 +45,5 @@
                 }
             });
             </script>
-        {% endif %}
     {% endif %}
 {% endif %}
