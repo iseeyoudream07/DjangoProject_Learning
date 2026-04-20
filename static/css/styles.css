@@ -28,7 +28,7 @@
     width: 22px;
     height: 16px;
     position: relative;
-    display: inline-block;
+    display: inline-flex;
     vertical-align: middle;
     margin-top: -4px; /* 微调垂直居中 */
 }
@@ -63,6 +63,16 @@
     transform: rotate(-45deg);
 }
 
+@media (max-width:991.98px) {
+    .navbar-nav.flex-row.nav-link{
+        padding: 0 !important;
+        display: flex;
+        align-items: center;
+    }
+    .navbar-brand{
+        font-size: 1.4rem !important;
+    }
+}
 
 body{
     position: relative;

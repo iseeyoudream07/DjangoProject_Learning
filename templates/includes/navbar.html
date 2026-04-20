@@ -1,86 +1,84 @@
 <nav class="navbar navbar-expand-lg navbar-dark mb-4" style="background-color: #5F9EA0;">
-            <div class="container">
-                <a class="navbar-brand" href="{% url 'learning_app:home' %}" style="font-family: 'Pacifico', cursive; font-size: 2.0rem;">
-                    Learning Log
+    <div class="container">
+        <a class="navbar-brand me-auto" href="{% url 'learning_app:home' %}" style="font-family: 'Pacifico', cursive; font-size: 2.0rem;">
+            Learning Log
+        </a>
+
+        <ul class="navbar-nav ms-auto align-items-center flex-row">
+            {% if site_announcement %}
+                <li class="nav-item me-3">
+                    <a class="nav-link text-light" href="#" data-bs-toggle="modal"
+                       data-bs-target="#announcementModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round"
+                             class="icon icon-tabler icons-tabler-outline icon-tabler-info-circle">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+                            <path d="M12 9h.01"></path>
+                            <path d="M11 12h1v4h1"></path>
+                        </svg>
+                    </a>
+                </li>
+            {% endif %}
+
+            <li class="nav-item me-3">
+                <a class="nav-link text-light fw-bold p-0" href="{% url 'learning_app:public_topics' %}">
+                    Public Area
+                </a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link text-light fs-5 hamburger-btn" href="#" id="navbarDropdown" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </a>
 
-                <ul class="navbar-nav ms-auto align-items-center">
-                    {% if site_announcement %}
-                        <li class="nav-item me-3">
-                            <a class="nav-link text-light" href="#" data-bs-toggle="modal"
-                               data-bs-target="#announcementModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     class="icon icon-tabler icons-tabler-outline icon-tabler-info-circle">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
-                                    <path d="M12 9h.01"></path>
-                                    <path d="M11 12h1v4h1"></path>
-                                </svg>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="navbarDropdown">
+
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a class="dropdown-item py-2" href="{% url 'users:profile' %}">
+                                My profile (<b>{{ user.username }}</b>)
                             </a>
                         </li>
-                    {% endif %}
 
-                    <li class="nav-item me-3">
-                        <a class="nav-link text-light fw-bold" href="{% url 'learning_app:public_topics' %}">
-                            Public Area
-                        </a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link text-light fs-5 hamburger-btn" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="hamburger-icon">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </a>
-
-                    <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="navbarDropdown">
-
-                        {% if user.is_authenticated %}
+                        {% if user.is_staff %}
                             <li>
-                                <a class="dropdown-item py-2" href="{% url 'users:profile' %}">
-                                    My profile (<b>{{ user.username }}</b>)
+                                <a class="dropdown-item py-2"
+                                   href="{% url 'learning_app:edit_announcement' %}">
+                                    Edit Announcement
                                 </a>
                             </li>
-
-                            {% if user.is_staff %}
-                                <li>
-                                    <a class="dropdown-item py-2"
-                                       href="{% url 'learning_app:edit_announcement' %}">
-                                        Edit Announcement
-                                    </a>
-                                </li>
-                            {% endif %}
-                            <li><hr class="dropdown-divider"></li>
                         {% endif %}
-
-                        <li>
-                            <button class="dropdown-item py-2" data-bs-toggle="modal" data-bs-target="#themeModal">
-                                Background Settings
-                            </button>
-                        </li>
-
                         <li><hr class="dropdown-divider"></li>
+                    {% endif %}
 
-                        {% if user.is_authenticated %}
-                            <li>
-                                <form method="post" action="{% url 'users:logout' %}" class="m-0 p-0">
-                                    {% csrf_token %}
-                                    <button class="dropdown-item py-2 text-danger fw-bold" type="submit">Log Out</button>
-                                </form>
-                            </li>
-                        {% else %}
-                            <li><a class="dropdown-item py-2" href="{% url 'users:login' %}">Log in</a></li>
-                            <li><a class="dropdown-item py-2" href="{% url 'users:register' %}">Register</a></li>
-                        {% endif %}
-                    </ul>
-                </li>
-            </ul>
-            </div>
-    </nav>
+                    <li>
+                        <button class="dropdown-item py-2" data-bs-toggle="modal" data-bs-target="#themeModal">
+                            Background Settings
+                        </button>
+                    </li>
+
+                    <li><hr class="dropdown-divider"></li>
+
+                    {% if user.is_authenticated %}
+                        <li>
+                            <form method="post" action="{% url 'users:logout' %}" class="m-0 p-0">
+                                {% csrf_token %}
+                                <button class="dropdown-item py-2 text-danger fw-bold w-100 text-start" type="submit">Log Out</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li><a class="dropdown-item py-2" href="{% url 'users:login' %}">Log in</a></li>
+                        <li><a class="dropdown-item py-2" href="{% url 'users:register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

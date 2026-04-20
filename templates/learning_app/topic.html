@@ -18,8 +18,8 @@
                     </span>
 
                 <div class="d-flex align-items-center">
-                    <button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#entry-text-{{ entry.id }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="20"
+                    <button class="copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-text="#entry-text-{{ entry.id }}">
+                        <svg style="pointer-events: none" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="20"
                              height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round"
                              stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -66,7 +66,8 @@
             var clipboard = new ClipboardJS('.copybtn');
             clipboard.on('success', function(e) {
                 var btn = e.trigger;
-                var originalText = btn.getAttribute ('data-tooltip', 'Copied!');
+                var originalText = btn.getAttribute ('data-tooltip');
+                btn.setAttrubute('data-tooltip','Copied!');
 
                 setTimeout(function() {
                     btn.setAttribute ('data-tooltip', originalText);
@@ -76,7 +77,7 @@
             })
 
             clipboard.on('error', function(e) {
-                console.error("Failed to save entry: " + e);
+                console.error("Failed to save entry: " + e.action);
             })
         })
     </script>
