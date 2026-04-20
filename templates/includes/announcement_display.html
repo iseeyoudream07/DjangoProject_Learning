@@ -1,5 +1,4 @@
-{% if request.resolver_match.url_name == 'home' %}
-    {% if site_announcement %}
+{% if site_announcement %}
         <div class="modal fade" id="announcementModal" tabindex="-1"
              aria-labelledby="announcementModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -45,5 +44,4 @@
                 }
             });
             </script>
-    {% endif %}
 {% endif %}
