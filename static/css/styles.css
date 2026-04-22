@@ -1,16 +1,19 @@
-/* ================= 按钮自定义样式 ================= */
+/* 个性化按钮 */
+/* 按钮1:青色 */
 .btn-custom {
     background-color: #20B2AA;
     border-color: #20B2AA;
     color: white;
 }
 
+/* 指针指向按钮时的变化 */
 .btn-custom:hover {
     background-color: #F5F5F5;
     border-color: snow;
     color: black;
 }
 
+/* 按钮2:白色 */
 .btn-custom_2 {
     background-color: #F5F5F5;
     border-color: snow;
@@ -63,6 +66,7 @@
     transform: rotate(-45deg);
 }
 
+/* 移动端优化 */
 @media(max-width:768px) {
     .mobile-nav-link {
         display: inline-flex;
@@ -106,13 +110,15 @@
     }
 }
 
+/* 网页背景设置 */
+/* 1、网页真背景设置 */
 body{
     position: relative;
     min-height: 100vh;
     background-color: white;
 }
 
-
+/* 自定义背景设定 */
 body::before{
     content: "";
     position: fixed;
@@ -129,6 +135,7 @@ body::before{
     z-index: -1;
 }
 
+/* 复制按钮 */
 .copybtn{
     background: transparent;
     border: none;
