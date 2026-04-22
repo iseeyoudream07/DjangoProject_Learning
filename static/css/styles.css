@@ -91,7 +91,7 @@
 }
 
 @media (max-width: 786px) {
-    .navbar-nav.flex-row.nav-link{
+    .navbar-nav.flex-row .nav-link{
         display: flex;
         align-items: center;
     }
