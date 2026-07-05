@@ -1,34 +1,65 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container mt-5">
-        <div class="card shadow-sm border-0">
-            <div class="card-body">
-                <h2 class="card-title text-center mb-4" style="font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 1px;">
-                    {{ user.username }}'s profile
-                </h2>
-                <hr>  
-
-                <h4 class="mb-3" style="font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 1px;">My topic({{ topics.count }})</h4>
-                {% if topics %}
-                    <ul class="list-group">
-                        {% for topic in topics %}
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="{% url 'learning_app:topic' topic.id %}" style="color: #B0E0E6; text-decoration: none;">
-                                    {{ topic.txt  }}
-                                </a>
-                                <span class="text-muted small">
-                                    {{ topic.date_added|date:"Y-m-d H:i" }}
-                                </span>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <div class="alert alert-info" role="alert">
-                        You haven’t created any learning topics yet. Go <a href="{% url 'learning_app:new_topic' %}">create one</a>!
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4 p-md-5">
+                    <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-2">
+                        <div>
+                            <h2 class="mb-1" style="font-family: 'Playfair Display', serif;">{{ request.user.username }}</h2>
+                            <div class="text-muted small">Personal File</div>
+                        </div>
+                        <a class="btn btn-custom px-4" href="{% url 'users:edit_profile' %}">Edit your file</a>
                     </div>
-                {% endif %}
+
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 border bg-white">
+                                <div class="text-muted small mb-1">Number</div>
+                                <div class="fw-semibold">{{ profile.display_phone }}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 border bg-white">
+                                <div class="text-muted small mb-1">Location</div>
+                                <div class="fw-semibold">{{ profile.display_location }}</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-3 rounded-3 border bg-white">
+                                <div class="text-muted small mb-1">Personal introduction</div>
+                                <div class="text-break" style="white-space: pre-line;">{{ profile.bio|default:"-" }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h4 class="mb-3" style="font-family: 'Playfair Display', serif;">My topic（{{ topics.count }}）</h4>
+
+                    {% if topics %}
+                        <ul class="list-group">
+                            {% for topic in topics %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="{% url 'learning_app:topic' topic.id %}" class="text-decoration-none" style="color: #5b8a9a;">
+                                        {{ topic.txt }}
+                                    </a>
+                                    <span class="text-muted small">{{ topic.date_added|date:"Y-m-d H:i" }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="alert alert-info mb-0">
+                            You haven't created any learning topics yet.
+                            <a href="{% url 'learning_app:new_topic' %}" class="alert-link">
+                                Create one</a> to get started!
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock content %}
